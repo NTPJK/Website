@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Living City — FiveM</title>
+  <meta name="description" content="The Living City — FiveM Roleplay Server" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">LC</div>
+        <div class="brand-text">
+          <div class="brand-title">The Living City</div>
+          <div class="brand-sub">FiveM Roleplay Server</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#status">Status</a>
+        <a href="#news">News</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#join">Join</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1><span class="hl">The Living City</span></h1>
+      <p>ก้าวสู่เมืองที่ “มีชีวิต” — พบระบบอาชีพ เศรษฐกิจ และกิจกรรมมากมาย</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#join">วิธีเข้าเล่น</a>
+        <a class="btn btn-ghost" href="#news">อ่านข่าวอัปเดต</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="status" class="card">
+      <h2>สถานะเซิร์ฟเวอร์</h2>
+      <div id="statusBody" class="status-body">กำลังโหลดสถานะ…</div>
+    </section>
+
+    <section id="news" class="card">
+      <div class="card-head">
+        <h2>ข่าวสาร</h2>
+        <a class="link" href="data/news.json" target="_blank" rel="noopener">ดูทั้งหมด</a>
+      </div>
+      <div id="newsList" class="news-list"></div>
+    </section>
+
+    <section id="gallery" class="card">
+      <div class="card-head">
+        <h2>แกลเลอรี</h2>
+        <a class="link" href="data/gallery.json" target="_blank" rel="noopener">ดูทั้งหมด</a>
+      </div>
+      <div id="galleryGrid" class="gallery-grid"></div>
+    </section>
+
+    <section id="join" class="card">
+      <h2>วิธีเข้าเล่น</h2>
+      <ol class="steps">
+        <li>ติดตั้ง <a class="link" href="https://fivem.net/" target="_blank" rel="noopener">FiveM</a></li>
+        <li>เปิด FiveM และค้นหาชื่อเซิร์ฟเวอร์: <b>The Living City</b></li>
+        <li>หรือกดเชื่อมต่อโดยตรง: <code>connect your.server.ip:port</code></li>
+        <li>อ่านกฎการเล่นให้ครบถ้วนและสนุกไปกับเมืองของเรา!</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> The Living City</div>
+      <div class="footer-links">
+        <a href="#" aria-disabled="true">Discord</a>
+        <a href="#" aria-disabled="true">Facebook</a>
+        <a href="#" aria-disabled="true">YouTube</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.TLC = {
+      STATUS_API: "https://your-worker.yourname.workers.dev/api/status" // เปลี่ยนเป็น Worker ของคุณ
+    };
+  </script>
+  <script src="/scripts/main.js" defer></script>
+</body>
+</html>

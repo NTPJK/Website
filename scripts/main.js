@@ -2,50 +2,45 @@
 // Load year
 document.getElementById("year").textContent = new Date().getFullYear();
 
-// ========= Status (แสดง ออนไลน์/ออฟไลน์/กำลังรีสตาร์ท + ผู้เล่น x/slot) =========
+// ========= Status (ออนไลน์/ออฟไลน์/กำลังรีสตาร์ท + ผู้เล่น x/slot) =========
 async function loadStatus() {
   const el = document.getElementById("statusBody");
-  const api = "/api/status"; // เรียก Pages Functions ที่เราสร้างไว้
-
   try {
-    const r = await fetch(api, { cache: "no-store" });
+    const r = await fetch("/api/status", { cache: "no-store" });
     const j = await r.json();
 
-    // เก็บเวลาที่ "เคยออนไลน์ล่าสุด" ไว้ใน browser เพื่อเดาสถานะ 'กำลังรีสตาร์ท'
+    // บันทึกเวลาที่ล่าสุดยัง "online" (ไว้เดาว่ากำลังรีสตาร์ทเมื่อติดต่อไม่ได้ชั่วคราว)
     const now = Date.now();
     if (j.ok && j.state === "online") {
       localStorage.setItem("tlc_last_ok", String(now));
     }
 
-    // แปลงสถานะเป็น 3 แบบ
+    // map สถานะเป็น 3 แบบ
     let state = "ออฟไลน์";
     if (j.state === "online") {
       state = "ออนไลน์";
     } else {
       const lastOk = Number(localStorage.getItem("tlc_last_ok") || 0);
-      const ageSec = (now - lastOk) / 1000;
-      if (lastOk > 0 && ageSec <= 180) { // ภายใน 3 นาทีหลังจากเคยออนไลน์
-        state = "กำลังรีสตาร์ท";
-      }
+      const age = (now - lastOk) / 1000;
+      if (lastOk > 0 && age <= 180) state = "กำลังรีสตาร์ท"; // 3 นาทีล่าสุด
     }
 
     const players = (j.clients ?? "—");
     const max = (j.max ?? "—");
 
     el.innerHTML = `
-      <div class="stat">
-        <div class="k">${state}</div>
-        <div class="s">Server status</div>
-      </div>
-      <div class="stat">
-        <div class="k">${players}/${max}</div>
-        <div class="s">Players</div>
-      </div>
+      <div class="stat"><div class="k">${state}</div><div class="s">Server status</div></div>
+      <div class="stat"><div class="k">${players}/${max}</div><div class="s">Players</div></div>
     `;
   } catch {
     el.textContent = "ออฟไลน์";
   }
 }
+
+// เรียกครั้งแรก + รีเฟรชทุก 15 วินาที
+loadStatus();
+setInterval(loadStatus, 15000);
+
 
 // ========= News =========
 async function loadNews() {

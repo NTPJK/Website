@@ -1,23 +1,6 @@
 // functions/api/status.js
 // สรุปสถานะ { ok, state, clients, max } พร้อม fallback หลายแบบ
 
-export async function onRequest(ctx) {
-  const kv = ctx.env.TLC_KV;
-  const raw = await kv.get("status_json");
-  if (!raw) {
-    return new Response(JSON.stringify({ ok:false, state:"offline", clients:0, max:null }), {
-      headers: { "content-type":"application/json", "access-control-allow-origin":"*" }
-    });
-  }
-  const d = JSON.parse(raw);
-  // ถ้าอัปเดตล่าสุดไม่เกิน 3 นาที ให้ถือว่า "กำลังรีสตาร์ท" เมื่อ clients=0
-  const age = (Date.now() - d.ts) / 1000;
-  let state = d.clients > 0 ? "online" : (age <= 180 ? "restarting" : "offline");
-  return new Response(JSON.stringify({ ok:true, state, clients: d.clients, max: d.max }), {
-    headers: { "content-type":"application/json", "cache-control":"no-store", "access-control-allow-origin":"*" }
-  });
-}
-
 const IP = "119.8.186.151";   // <-- ของคุณ
 const PORT = 30120;           // <-- ของคุณ (ส่วนใหญ่ 30120)
 

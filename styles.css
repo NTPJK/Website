@@ -19,12 +19,13 @@ html,body { margin:0; padding:0; font-family: 'Poppins', system-ui, -apple-syste
 .brand-mark {
   width: 80px;
   height: 80px;
-  border-radius: 0%;
+  border-radius: 70%;
   overflow: hidden; /* ทำให้รูปภาพอยู่ในวงกลม */
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none; /* ถ้าโลโก้เป็น PNG โปร่งใส จะมีพื้นหลังเหลือง */
+  background: #fff; /* ถ้าโลโก้เป็น PNG โปร่งใส จะมีพื้นหลังเหลือง */
+  padding:6px;
 }
 .brand-mark img {
   width: 100%;
@@ -32,8 +33,8 @@ html,body { margin:0; padding:0; font-family: 'Poppins', system-ui, -apple-syste
   object-fit: contain;
 }
 
-.brand-title { font-size: 1.1rem; font-weight:700; line-height:1; }
-.brand-sub { font-size:.8rem; color:#ccc; line-height:1; margin-top:3px; }
+.brand-title{ font-size:1.25rem; font-weight:700; line-height:1.1; }
+.brand-sub{   font-size:.85rem;  opacity:.9;      margin-top:.15rem; }
 
 .nav a { color: var(--c-white); text-decoration:none; margin-left:16px; opacity:.9 }
 .nav a:hover { opacity:1; color: var(--c-yellow); }
@@ -82,3 +83,71 @@ code { background: #111; padding: 2px 6px; border-radius: 6px; border:1px solid 
 @media (max-width: 640px) {
   .nav a { margin-left:12px; }
 }
+
+
+/* ==== TLC Theme overrides ==== */
+:root{
+  --bg: #012745;          /* พื้นหลังใหม่ */
+  --card: rgba(0,0,0,0.25);/* เผื่อใช้บนการ์ดอื่น */
+  --accent: #FBB822;      /* แถบโลโก้/ปุ่มหลัก */
+  --accent-ink: #012745;  /* สีตัวอักษรบนแถบ/ปุ่มเหลือง */
+  --ink: #E8F2FF;         /* ตัวอักษรหลักบนพื้นน้ำเงินเข้ม */
+}
+
+body{ background:#012745; color:var(--ink); }
+
+/* แถบด้านบน (navbar) */
+.header, .nav, header.site-header{
+  background: var(--accent) !important;
+  color: var(--accent-ink) !important;
+  border-bottom: none !important;
+}
+.header a, .nav a{
+  color: var(--accent-ink) !important;
+}
+.header a:hover, .nav a:hover{
+  opacity:.85;
+}
+
+/* ฮีโร่ด้านบนให้ไล่เฉดเข้ากับธีมใหม่ */
+.hero, .hero::before{
+  background: radial-gradient( at 50% 0%, rgba(251,184,34,.25), rgba(1,39,69,0) 40%),
+              linear-gradient(#012745, #012745) !important;
+}
+
+/* เอากรอบ/พื้นสีดำของสองบรรทัดแรกออก */
+.status-intro, .status-steps{
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: .25rem 0 !important;
+}
+
+/* กล่อง Server IP Connect แบบตัวอย่าง */
+.copy-line{
+  display:flex; align-items:center; gap:.5rem;
+  background:#0b1f36;          /* เข้มกว่าพื้นนิดนึง */
+  border-radius:.6rem; padding:.5rem .6rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  color:#cde2ff; border:1px solid rgba(255,255,255,.08);
+}
+.copy-line code{ background:transparent; color:inherit; padding:0; }
+.copy-btn{
+  margin-left:auto; border:none; cursor:pointer;
+  background:#fff; color:#000; border-radius:999px; padding:.35rem .75rem; font-weight:600;
+}
+.copy-btn:hover{ filter: brightness(.95); }
+
+/* ปุ่มหลักให้เข้ากับแถบเหลือง */
+.btn, a.btn{
+  background: var(--accent); color: var(--accent-ink);
+  border-radius: 999px; padding:.55rem 1rem; display:inline-block;
+}
+.btn:hover{ filter:brightness(.95); }
+
+/* การ์ดข่าว/แกลเลอรีคงเดิมแต่ปรับโทนเล็กน้อย */
+.news-card, .gallery-card, .panel{
+  background: rgba(0,0,0,.22);
+  border: 1px solid rgba(255,255,255,.06);
+}
+.section-title{ color:#fff; }

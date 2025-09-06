@@ -9,14 +9,52 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css" />
+
+  <!-- Overrides ธีม (สีพื้น #012745, แถบโลโก้ #FBB822, ตัดกรอบดำส่วนสถานะ) -->
+  <style>
+    :root{
+      --bg: #012745;           /* พื้นหลัง */
+      --accent: #FBB822;       /* แถบบน/ปุ่มหลัก */
+      --accent-ink:#012745;    /* สีตัวอักษรบนพื้นเหลือง */
+      --ink:#E8F2FF;           /* สีตัวอักษรหลัก */
+    }
+    body{ background:#012745; color:var(--ink); }
+    .site-header{ background:var(--accent) !important; color:var(--accent-ink) !important; border-bottom:none; }
+    .site-header .nav a{ color:var(--accent-ink) !important; }
+    .site-header .nav a:hover{ opacity:.85; }
+    .hero, .hero::before{
+      background: radial-gradient( at 50% 0%, rgba(251,184,34,.25), rgba(1,39,69,0) 40%),
+                  linear-gradient(#012745, #012745) !important;
+    }
+    /* ตัดกรอบ/พื้นดำสองบรรทัดแรกใต้หัวข้อสถานะ */
+    .status-intro, .status-steps{
+      background: transparent !important; box-shadow:none !important; border:none !important; padding:.25rem 0 !important;
+    }
+    /* ปุ่มหลัก */
+    .btn{ background:var(--accent); color:var(--accent-ink); border-radius:999px; padding:.55rem 1rem; display:inline-block; }
+    .btn:hover{ filter:brightness(.95); }
+    /* บรรทัดคัดลอกคำสั่ง */
+    .copy-line{
+      display:flex; align-items:center; gap:.5rem;
+      background:#0b1f36; border:1px solid rgba(255,255,255,.08);
+      border-radius:.6rem; padding:.5rem .6rem; color:#cde2ff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    }
+    .copy-line code{ background:transparent; color:inherit; padding:0; }
+    .copy-btn{ margin-left:auto; border:none; cursor:pointer; background:#fff; color:#000; border-radius:999px; padding:.35rem .75rem; font-weight:600; }
+    .copy-btn:hover{ filter:brightness(.95); }
+    /* การ์ด/หัวข้อยังคงสไตล์เดิม เพียงปรับโทนเล็กน้อย */
+    .card{ background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.06); }
+    .card h2, .section-title{ color:#fff; }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
         <div class="brand-mark">
-  <img src="assets/logo.png" alt="The Living City Logo">
-</div>
+          <img src="assets/logo.png" alt="The Living City Logo">
+        </div>
         <div class="brand-text">
           <div class="brand-title">The Living City</div>
           <div class="brand-sub">FiveM Roleplay Server</div>
@@ -36,8 +74,8 @@
       <h1><span class="hl">The Living City</span></h1>
       <p>ก้าวสู่เมืองที่ “มีชีวิต” — พบระบบอาชีพ เศรษฐกิจ และกิจกรรมมากมาย</p>
       <div class="cta">
-        <a class="btn btn-primary" href="#join">วิธีเข้าเล่น</a>
-        <a class="btn btn-ghost" href="#news">อ่านข่าวอัปเดต</a>
+        <a class="btn" href="#join">วิธีเข้าเล่น</a>
+        <a class="btn btn-ghost" href="#news" style="background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff">อ่านข่าวอัปเดต</a>
       </div>
     </div>
   </section>
@@ -45,9 +83,38 @@
   <main class="container">
     <section id="status" class="card">
       <h2>สถานะเซิร์ฟเวอร์</h2>
-      <div id="statusBody" class="status-body">กำลังโหลดสถานะ…</div>
+
+      <!-- สองบรรทัดแรก: ไม่มีกรอบ -->
+      <div class="status-intro">
+        <div class="k">ขณะนี้เซิร์ฟเวอร์เปิดให้บริการแล้ว</div>
+      </div>
+      <div class="status-steps">
+        <div class="k">สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ตามด้านล่างนี้</div>
+      </div>
+
+      <!-- เนื้อหาหลัก แทนที่ #statusBody เดิม -->
+      <div id="statusBody" class="status-body">
+
+  <p style="margin:.35rem 0 0">
+    <strong>Server Link (cfx)</strong><br>
+    <a class="btn" href="https://cfx.re/join/k8648a" target="_blank" rel="noopener">เปิดด้วย cfx.re</a>
+  </p>
+
+  <p style="margin:.65rem 0 0">
+    <strong>เปิดด้วย FiveM โดยตรง</strong><br>
+    <a class="btn" href="fivem://connect/119.8.186.151:30120">เปิด FiveM อัตโนมัติ</a>
+  </p>
+
+  <p style="margin:.65rem 0 .35rem"><strong>Server IP Connect (คัดลอกไปวางในคอนโซล):</strong></p>
+  <div class="copy-line">
+    <code>connect&nbsp;119.8.186.151:30120</code>
+    <button id="copyCmd" class="copy-btn" type="button">คัดลอก</button>
+  </div>
+
+</div>
     </section>
 
+    <!-- ข่าวสาร (เหมือนเดิม) -->
     <section id="news" class="card">
       <div class="card-head">
         <h2>ข่าวสาร</h2>
@@ -56,6 +123,7 @@
       <div id="newsList" class="news-list"></div>
     </section>
 
+    <!-- แกลเลอรี (เหมือนเดิม) -->
     <section id="gallery" class="card">
       <div class="card-head">
         <h2>แกลเลอรี</h2>
@@ -69,7 +137,7 @@
       <ol class="steps">
         <li>ติดตั้ง <a class="link" href="https://fivem.net/" target="_blank" rel="noopener">FiveM</a></li>
         <li>เปิด FiveM และค้นหาชื่อเซิร์ฟเวอร์: <b>The Living City</b></li>
-        <li>หรือกดเชื่อมต่อโดยตรง: <code>connect your.server.ip:port</code></li>
+        <li>หรือกดเชื่อมต่อโดยตรง: <code>connect 119.8.186.151:30120</code></li>
         <li>อ่านกฎการเล่นให้ครบถ้วนและสนุกไปกับเมืองของเรา!</li>
       </ol>
     </section>
@@ -79,18 +147,25 @@
     <div class="container footer-inner">
       <div>© <span id="year"></span> The Living City</div>
       <div class="footer-links">
-        <a href="#" aria-disabled="true">Discord</a>
+        <a href="https://discord.gg/FEjS8TxzDW" target="_blank" rel="noopener">Discord</a>
         <a href="#" aria-disabled="true">Facebook</a>
         <a href="#" aria-disabled="true">YouTube</a>
       </div>
     </div>
   </footer>
 
+  <!-- ไม่ใช้ STATUS_API แล้ว ตัดสคริปต์เดิมออก -->
   <script>
-    window.TLC = {
-      STATUS_API: "https://your-worker.yourname.workers.dev/api/status" // เปลี่ยนเป็น Worker ของคุณ
-    };
+    // ปีปัจจุบัน
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ปุ่มคัดลอก connect IP
+    document.getElementById("copyCmd")?.addEventListener("click", () => {
+      navigator.clipboard.writeText("connect 119.8.186.151:30120")
+        .then(() => alert("คัดลอกแล้ว: connect 119.8.186.151:30120"));
+    });
   </script>
+  <!-- คง main.js ถ้ายังใช้โหลด news/gallery -->
   <script src="/scripts/main.js" defer></script>
 </body>
 </html>
